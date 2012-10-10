@@ -77,6 +77,22 @@ describe Rubypedia do
       Rubypedia.get_content(title, lang, fields).should == output
     end
     
+    it "return values of requested fields for Afghanistan" do
+      title = "afghanistan"
+      lang = "en"
+      fields = [
+        "capital",
+        "currency",
+        "languages"
+      ]
+      output = {
+        "capital" => "Kabul",
+        "currency" => "Afghan afghani",
+        "languages" => "Dari Persian"
+      }
+      Rubypedia.get_content(title, lang, fields).should == output
+    end    
+    
     it "return values of requested fields for warsaw" do
       Rubypedia.stub(:response_body => warsaw)
       title = "warsaw"
