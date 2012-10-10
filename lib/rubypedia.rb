@@ -9,18 +9,13 @@ module Rubypedia
   end
   
   def self.response_body(page, lang='en')
-    url       = make_url(page, lang)
-  	response  = HTTParty.get(url, :headers => { 'User-Agent' => 'Httparty' })
+  	response  = HTTParty.get(url(page, lang), :headers => { 'User-Agent' => 'Httparty' })
     response.body
   end
   
-  def self.make_url(page, lang='en')
-    if page.split.size > 1
-      title = page.split.map(&:capitalize).join('_')
-    else
-      title = page.capitalize
-    end
-    "http://#{lang}.wikipedia.org/w/api.php?action=query&prop=revisions&titles=#{title}&rvprop=content&format=json&rvsection=0"
+  def self.url(title, lang='en', rvsection=0)
+      title = title.split.map(&:capitalize).join('_')
+      "http://#{lang}.wikipedia.org/w/api.php?action=query&prop=revisions&titles=#{title}&rvprop=content&format=json&rvsection=#{rvsection}"
   end
 
   def self.hashify(lines, fields)
