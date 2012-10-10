@@ -27,6 +27,12 @@ describe Rubypedia do
       Rubypedia.content(input).should == output
     end
     
+    it "return value without ref tag" do
+      input   = "currency = Turkish lira<ref>The Turkish lira (''T\u00fcrk Liras\u0131'', TL) replaced the Turkish lira#8th Emission group"
+      output  = "Turkish lira"
+      Rubypedia.content(input).should == output
+    end
+    
     it "return value for cities" do
       input   = 'population_total= 1,708,491<ref name=\"stat.gov.pl\">{{pl icon}} {{cite web|url=http:\/\/www.stat.gov.pl\/gus\/5840_13211_PLK_HTML.htm|title=Ludno\u015b\u0107 w gminach wed\u0142ug stanu w dniu 31.12.2011 r. bilans opracowany w oparciu o wyniki NSP\u20192011 |publisher=Gl\u00f3wny Urz\u0105d Statystyczny |date=|accessdate=21 August 2012}}<\/ref>\n|population_density_km2=3304\n|population_metro=2,666,278\n|population_density_metro_km2=631.4'
       output  = '1,708,491'

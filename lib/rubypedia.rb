@@ -32,10 +32,10 @@ module Rubypedia
   def self.content(line)
     a = line.split('=')
     if a.size == 2
-      a[1].split('|').first.gsub(/\[*\]*/, '').strip
+      a[1].split('|').first.gsub(/\[*\]*/, '').split(/<ref\s*/).first.strip
     elsif a.size > 2
       if line.include?('<ref ')
-        a[1].split('|').first.gsub(/\[*\]*/, '').split(/\<ref\s*/).first.strip
+        a[1].split('|').first.gsub(/\[*\]*/, '').split(/<ref\s*/).first.strip
       else
         raise "Unexpected line format"
       end
