@@ -7,10 +7,10 @@ Gem::Specification.new do |s|
   s.name        = "rubypedia"
   s.version     = Rubypedia::VERSION
   s.authors     = ["gcimmino"]
-  s.email       = ["giovanni.cimmino@mikamai.com"]
+  s.email       = ["giovanni.cimmino@gmail.com"]
   s.homepage    = "https://github.com/gcimmino/rubypedia"
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.summary     = "Rubypedia wrapper for wikipedia API content"
+  s.description = "Rubypedia extracts content from Wikipedia API"
 
   s.rubyforge_project = "rubypedia"
 
