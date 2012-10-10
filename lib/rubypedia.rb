@@ -35,7 +35,7 @@ module Rubypedia
       a[1].split('|').first.gsub(/\[*\]*/, '').strip
     elsif a.size > 2
       if line.include?('<ref ')
-        a[1].split('|').first.gsub(/\[*\]*/, '').split('<ref ').first.strip
+        a[1].split('|').first.gsub(/\[*\]*/, '').split(/\<ref\s*/).first.strip
       else
         raise "Unexpected line format"
       end
