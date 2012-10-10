@@ -5,22 +5,21 @@ require 'pry'
 module Rubypedia
   def self.get_content(title, lang, fields)
   	lines = arrayfy(response_body(title, lang))
-    # binding.pry
     hashify(lines, fields)
   end
   
-  def self.response_body(title, lang)
+  def self.response_body(title, lang='en')
     url       = "http://#{lang}.wikipedia.org/w/api.php?action=query&prop=revisions&titles=#{title}&rvprop=content&format=json&rvsection=0"
   	response  = HTTParty.get(url, :headers => { 'User-Agent' => 'Httparty' })
     response.body
   end
 
-  def self.hashify(lines, words)
+  def self.hashify(lines, fields)
     result = Hash.new
-    words.each do |word|
-      match = lines.detect {|line| line.match("#{word}\s*=") }
+    fields.each do |field|
+      match = lines.detect {|line| line.match("#{field}\s*=") }
       if match
-        result[word] = content(match)
+        result[field] = content(match)
       end
     end
     result
@@ -41,5 +40,11 @@ module Rubypedia
         raise "Unexpected line format"
       end
     end
+  end
+  
+  def self.exists?(title, lang='en', field)
+    lines = arrayfy(response_body(title, lang))
+    match = lines.detect { |line| line.match("#{field}\s*=") }
+    match.nil? ? false : true
   end
 end

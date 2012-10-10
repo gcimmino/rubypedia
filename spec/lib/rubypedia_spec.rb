@@ -34,6 +34,13 @@ describe Rubypedia do
     end
   end
   
+  describe "#response_body" do
+    it "return page section 0 from wikipedia api" do
+      title   = 'poland'
+      Rubypedia.response_body(title).should == poland
+    end
+  end
+  
   describe "#get_content" do
     it "return values of requested fields for poland" do
       Rubypedia.stub(:response_body => poland)
@@ -75,5 +82,16 @@ describe Rubypedia do
         }
         Rubypedia.hashify(Rubypedia.arrayfy(poland), fields).should == output
     end
+  end
+  
+  describe "#exists" do
+    it "return true if a field exists" do
+      Rubypedia.stub(:response_body => poland)
+      title   = 'poland'
+      lang    = 'en'
+      field   = 'capital'
+      output  = true
+      Rubypedia.exists?(title, lang, field).should == output
+    end    
   end
 end
