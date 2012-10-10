@@ -31,15 +31,19 @@ module Rubypedia
     
   def self.content(line)
     a = line.split('=')
-    if a.size == 2
-      a[1].split('|').first.gsub(/\[*\]*/, '').split(/<ref\s*/).first.strip
-    elsif a.size > 2
-      if line.include?('<ref ')
-        a[1].split('|').first.gsub(/\[*\]*/, '').split(/<ref\s*/).first.strip
-      else
-        raise "Unexpected line format"
-      end
-    end
+    a[1].split('|').first.gsub(/\[*\]*/, '').split(/<ref\s*/).first.split(/\(/).first.strip
+    # binding.pry
+    
+    # if a.size == 2
+    #   a[1].split('|').first.gsub(/\[*\]*/, '').split(/<ref\s*/).first.strip
+    # elsif a.size > 2
+    #   binding.pry
+    #   if line.include?('<ref ')
+    #     a[1].split('|').first.gsub(/\[*\]*/, '').split(/<ref\s*/).first.strip
+    #   else
+    #     raise "Unexpected line format"
+    #   end
+    # end
   end
   
   def self.exists?(title, lang='en', field)
