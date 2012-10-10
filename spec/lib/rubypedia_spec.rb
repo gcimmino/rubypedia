@@ -3,6 +3,7 @@ require 'spec_helper'
 fixture_path  = File.expand_path('../../fixtures', __FILE__)
 poland        = File.read(fixture_path+"/poland")
 england       = File.read(fixture_path+"/england")
+arabia_saudi  = File.read(fixture_path+"/saudi_arabia")
 warsaw        = File.read(fixture_path+"/warsaw")
 
 describe Rubypedia do
@@ -45,24 +46,61 @@ describe Rubypedia do
       title   = 'poland'
       Rubypedia.response_body(title).should == poland
     end
+    
+    it "return page for string with spaces within" do
+      title   = 'saudi arabia'
+      Rubypedia.response_body(title).should == arabia_saudi
+    end
   end
   
   describe "#get_content" do
-    it "return values of requested fields for poland" do
-      Rubypedia.stub(:response_body => poland)
-      title = "poland"
-      lang = "en"
-      fields = [
-        "capital",
-        "currency",
-        "languages"
-      ]
-      output = { "capital" => 'Warsaw', "currency" => 'Polish z\u0142oty', "languages" => 'Polish language' }
-      Rubypedia.get_content(title, lang, fields).should == output
-    end
+    # it "return values of requested fields for poland" do
+    #   Rubypedia.stub(:response_body => poland)
+    #   title = "poland"
+    #   lang = "en"
+    #   fields = [
+    #     "capital",
+    #     "currency",
+    #     "languages"
+    #   ]
+    #   output = { "capital" => 'Warsaw', "currency" => 'Polish z\u0142oty', "languages" => 'Polish language' }
+    #   Rubypedia.get_content(title, lang, fields).should == output
+    # end
+    # 
+    # it "return values of requested fields for italy" do
+    #   title = "italy"
+    #   lang = "en"
+    #   fields = [
+    #     "capital",
+    #     "currency",
+    #     "languages"
+    #   ]
+    #   output = {
+    #     "capital" => "Rome",
+    #     "currency" => "Euro",
+    #     "languages" => "Italian language"
+    #   }
+    #   Rubypedia.get_content(title, lang, fields).should == output
+    # end
+    # 
+    # it "return values of requested fields for Afghanistan" do
+    #   title = "afghanistan"
+    #   lang = "en"
+    #   fields = [
+    #     "capital",
+    #     "currency",
+    #     "languages"
+    #   ]
+    #   output = {
+    #     "capital" => "Kabul",
+    #     "currency" => "Afghan afghani",
+    #     "languages" => "Dari Persian"
+    #   }
+    #   Rubypedia.get_content(title, lang, fields).should == output
+    # end
     
-    it "return values of requested fields for italy" do
-      title = "italy"
+    it "return values of requested fields for Saudi Arabia" do
+      title = "saudi arabia"
       lang = "en"
       fields = [
         "capital",
@@ -70,28 +108,12 @@ describe Rubypedia do
         "languages"
       ]
       output = {
-        "capital" => "Rome",
-        "currency" => "Euro",
-        "languages" => "Italian language"
+        "capital" => "Riyadh",
+        "currency" => "Saudi riyal",
+        "languages" => "Arabic language"
       }
       Rubypedia.get_content(title, lang, fields).should == output
     end
-    
-    it "return values of requested fields for Afghanistan" do
-      title = "afghanistan"
-      lang = "en"
-      fields = [
-        "capital",
-        "currency",
-        "languages"
-      ]
-      output = {
-        "capital" => "Kabul",
-        "currency" => "Afghan afghani",
-        "languages" => "Dari Persian"
-      }
-      Rubypedia.get_content(title, lang, fields).should == output
-    end    
     
     it "return values of requested fields for warsaw" do
       Rubypedia.stub(:response_body => warsaw)
