@@ -23,7 +23,7 @@ Usage
 	title   = 'poland'
     fields = [ 'capital', 'currency', 'languages' ]
 	
-	content = Rubypedia.get_content(title, lang, request)
+	content = Rubypedia.get_content(title, lang, fields)
 	puts content['capital'] => "Warsaw"
 	
 
