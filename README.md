@@ -1,7 +1,7 @@
 Rubypedia
 =========
 
-Rubypedia extracts content from [Wikipedia](http://en.wikipedia.org/w/api.php) API.
+Rubypedia extracts content like <tt>field=value</tt> from [Wikipedia](http://en.wikipedia.org/w/api.php) API.
 
 Now just for [rvsection=0](https://github.com/gcimmino/rubypedia/blob/master/lib/rubypedia.rb#L13):
 	
@@ -23,7 +23,6 @@ Usage
 	title   = 'poland'
     fields = [ 'capital', 'currency', 'languages' ]
 	
-	content = Rubypedia.get_content(title, lang, fields)
+	content = Rubypedia.get_content(title, fields)
 	puts content['capital'] => "Warsaw"
 	
-
