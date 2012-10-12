@@ -3,26 +3,27 @@ Rubypedia
 
 Rubypedia extracts content like <tt>field=value</tt> from [Wikipedia](http://en.wikipedia.org/w/api.php) API.
 
-Now just for [rvsection=0](https://github.com/gcimmino/rubypedia/blob/master/lib/rubypedia.rb#L13):
-	
+At the moment it works only for [rvsection=0](https://github.com/gcimmino/rubypedia/blob/master/lib/rubypedia.rb#L13):
+
 	http://#{lang}.wikipedia.org/w/api.php?action=query&prop=revisions&titles=#{title}&rvprop=content&format=json&rvsection=0
 
 
 Installation
 ------------
 
-By command line:
+Via command line:
+```shell
+$ gem install rubypedia --source https://github.com/gcimmino/rubypedia.git
+$ gem install
+```
 
-
-	$ gem install rubypedia --source https://github.com/gcimmino/rubypedia.git
-	$ gem install
 
 Usage
 -----
+```ruby
+title  = 'poland'
+fields = [ 'capital', 'currency', 'languages' ]
 
-	title   = 'poland'
-    fields = [ 'capital', 'currency', 'languages' ]
-	
-	content = Rubypedia.get_content(title, fields)
-	puts content['capital'] => "Warsaw"
-	
+content = Rubypedia.get_content(title, fields)
+puts content['capital'] => "Warsaw"
+```

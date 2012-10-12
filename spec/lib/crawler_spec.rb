@@ -1,51 +1,55 @@
 require 'spec_helper'
 
-fixture_path  = File.expand_path('../../fixtures', __FILE__)
-poland        = File.read(fixture_path+"/poland")
-# england       = File.read(fixture_path+"/england")
-# saudi_arabia  = File.read(fixture_path+"/saudi_arabia")
-# warsaw        = File.read(fixture_path+"/warsaw")
-
 describe "Crawler" do
-  describe "#page_content" do
-    it "return body of a wikipedia page" do
-      crawler = Rubypedia::Crawler.new("poland", nil)
-      crawler.page_content.should == poland
-    end
-  end
-  
-  describe "#sanitize_title" do
-    it "return a string with capitalized words and spaces substituted by underscore" do
-      title = "saudi arabia"
-      crawler = Rubypedia::Crawler.new(title, nil)
-      crawler.sanitize_title.should == "Saudi_Arabia"
-    end
-  end
-  
   describe "#get_content" do
-    it "return an hash with searched values" do
+    it "returns a hash with requested values" do
       title = "poland"
       fields = [ "capital" ]
-      output = { "capital" => "Warsaw" }
       crawler = Rubypedia::Crawler.new(title, fields)
-      crawler.get_content.should == output
+      crawler.get_content.should == { "capital" => "Warsaw" }
     end
-    
-    it "return an hash with searched values, italian offcial_languages" do
+
+    it "returns a hash with requested values also on italy page" do
       title = "italy"
       fields = [ "official_languages" ]
-      output = { "official_languages" => "Italian language" }
       crawler = Rubypedia::Crawler.new(title, fields)
-      crawler.get_content.should == output
+      crawler.get_content.should == { "official_languages" => "Italian language" }
     end
   end
-  
+
   describe "#exists?" do
-    it "return true if a field exists" do
-      title = "italy"
-      field = ["languages"]
-      crawler = Rubypedia::Crawler.new(title, field)
-      crawler.exists?(field).should be_true
+    context 'when requested field exists' do
+      it "returns true" do
+        title = "italy"
+        fields = ["official_languages"]
+        crawler = Rubypedia::Crawler.new(title, fields)
+        crawler.exists?(fields.first).should be_true
+      end
+    end
+
+    context 'when field doesnt exist' do
+      it 'returns false' do
+        title = "italy"
+        fields = ["abracadabra"]
+        crawler = Rubypedia::Crawler.new(title, fields)
+        crawler.exists?(fields.first).should be_false
+      end
+    end
+  end
+
+  describe 'private methods' do
+    describe "#page_content" do
+      it "returns body of the wikipedia page" do
+        crawler = Rubypedia::Crawler.new("poland")
+        crawler.send(:page_content).should == fixture_content('poland')
+      end
+    end
+
+    describe "#sanitize_title" do
+      it "return a string with capitalized words and spaces substituted by underscore" do
+        crawler = Rubypedia::Crawler.new("saudi arabia")
+        crawler.send(:sanitize_title).should == "Saudi_Arabia"
+      end
     end
   end
 end
