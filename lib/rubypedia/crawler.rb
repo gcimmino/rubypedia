@@ -1,12 +1,11 @@
 module Rubypedia
   class Crawler
-    attr_reader :title, :lang, :fields, :body_page
+    attr_reader :title, :lang, :fields
 
     def initialize(title, fields=[], lang='en')
-      @title     = title
-      @lang      = lang
-      @fields    = fields
-      @body_page = page_content
+      @title  = title
+      @lang   = lang
+      @fields = fields
     end
 
     def get_content
@@ -19,7 +18,21 @@ module Rubypedia
       !!response_body.hashify.keys.index(field)
     end
 
+    def title=(value)
+      @title = value
+      clear_response_body
+    end
+
+    def lang=(value)
+      @lang = value
+      clear_response_body
+    end
+
     private
+
+    def clear_response_body
+      @response_body = nil
+    end
 
     def page_content
       HTTParty.get(resource_url, :headers => {'User-Agent' => 'Httparty'}).body
@@ -30,7 +43,7 @@ module Rubypedia
     end
 
     def response_body
-      @response_body ||= Rubypedia::ResponseBody.new(body_page)
+      @response_body ||= Rubypedia::ResponseBody.new(page_content)
     end
 
     def resource_url(rvsection=0)
