@@ -27,8 +27,5 @@ opts = {
 	:lang	=> 'en'
 }
 
-content = Rubypedia.get_content(opts)
-puts content['capital'] #=> "Warsaw"
-content.title = 'italy'
-puts content['capital'] #=> "Rome"
+puts Rubypedia.get_content(opts) #=> "Warsaw"
 ```
