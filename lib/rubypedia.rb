@@ -9,9 +9,9 @@ module Rubypedia
 
   def get_content(options)
     options.reverse_merge!(default_options)
-    title   = options[:title]
+    title   = options[:title] unless validate_title(options[:title])
+    lang    = options[:lang] unless validate_lang(options[:lang])
     fields  = options[:fields]
-    lang    = options[:lang]
     Crawler.new(title, fields, lang).get_content
   end
 
