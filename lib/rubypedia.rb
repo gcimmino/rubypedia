@@ -9,13 +9,25 @@ module Rubypedia
 
   def get_content(options)
     options.reverse_merge!(default_options)
-    title  = options[:title]
-    fields = options[:fields]
-    lang   = options[:lang]
+    title   = options[:title]
+    fields  = options[:fields]
+    lang    = options[:lang]
     Crawler.new(title, fields, lang).get_content
   end
 
   def default_options
-    {:lang => :en, :fields => []}
+    {:lang => :en}
+  end
+  
+  def validate_title(title)
+    if title.nil? || title.empty?
+      raise ArgumentError, "Invalid title. Title must be a not empty string."
+    end
+  end
+  
+  def validate_lang(lang)
+    if lang.empty?
+      raise ArgumentError, "Invalid lang. Lang must be a not empty string."
+    end
   end
 end

@@ -21,9 +21,14 @@ $ gem install
 Usage
 -----
 ```ruby
-title  = 'poland'
-fields = [ 'capital', 'currency', 'languages' ]
+opts = {
+	:title  => 'poland',
+	:fields => [ 'capital', 'currency', 'languages' ],
+	:lang	=> 'en'
+}
 
-content = Rubypedia.get_content(title, fields)
-puts content['capital'] => "Warsaw"
+content = Rubypedia.get_content(opts)
+puts content['capital'] #=> "Warsaw"
+content.title = 'italy'
+puts content['capital'] #=> "Rome"
 ```
