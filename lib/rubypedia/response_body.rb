@@ -2,7 +2,7 @@ module Rubypedia
   class ResponseBody
     attr_reader :body
 
-    NASTY_REGEXP = /\|\s*(\w+)\s?=\s?\[*([\w\s\.,\\]+)\]*/
+    NASTY_REGEXP = /\|\s*(\w+)\s*=\s*\[*([\w\s\.,\\]+)\]*/
 
     def initialize(body)
       @body = body

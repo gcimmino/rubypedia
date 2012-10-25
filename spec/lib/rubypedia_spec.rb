@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'pry'
 
 describe Rubypedia do
   describe "#get_content" do
@@ -31,6 +32,17 @@ describe Rubypedia do
         :fields => [ "population_total", "area_total_km2" ]
       }
       output = { "population_total" => '1,708,491', "area_total_km2" => '517.24' }
+      Rubypedia.get_content(opts).should == output
+    end
+    
+    it "return values of requested fields for Rome" do
+      Rubypedia.stub :response_body => fixture_content('rome')
+      opts = {
+        :title  => "rome",
+        :lang   => "en",
+        :fields => [ "population_total", "area_total_km2" ]
+      }
+      output = { "population_total" => '2777979', "area_total_km2" => '1285.31' }
       Rubypedia.get_content(opts).should == output
     end
   end
