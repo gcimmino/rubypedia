@@ -17,10 +17,11 @@ module Rubypedia
     end
 
     def hashify
-      arrayfy.inject Hash.new do |memo, line|
+      res = arrayfy.inject Hash.new do |memo, line|
         field, value = line
         memo.update(field => value)
       end
+      res
     end
   end
 end

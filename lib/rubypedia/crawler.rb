@@ -9,9 +9,13 @@ module Rubypedia
     end
 
     def get_content
-      fields.inject Hash.new do |memo, field|
-        memo.update response_body.hashify.select {|f,v| f == field}
+      res = fields.inject(Hash.new) do |memo, field|
+        response_body.hashify.each do |f,v|
+          memo.merge!({f => v}) if f == field
+        end
+        memo
       end
+      res
     end
 
     def exists?(field)

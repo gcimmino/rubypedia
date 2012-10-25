@@ -2,6 +2,11 @@ require 'spec_helper'
 
 describe "ResponseBody" do
   describe "#hashify" do
+    it 'returns an hash starting by an array of keys' do
+      element  = ['calling_code', 'Telephone numbers in Poland']
+      response = Rubypedia::ResponseBody.new fixture_content('poland')
+      response.hashify.keys.should include(element[0])
+    end
   end
 
   describe "#arrayfy" do
